@@ -1,0 +1,121 @@
+﻿@using PRG.EVA.BlackJack.Models
+
+@{
+    string result = "Playing";
+    if (ViewBag.Result != null)
+    {
+        result = ViewBag.Result;
+    }
+
+    // Determine the amount won or lost
+    decimal wins = 0;
+    if (ViewBag.Wins != null)
+    {
+        wins = (decimal)ViewBag.Wins;
+    }
+
+    // Determine the total value of the dealer's hand
+    int totalDealer = 0;
+    if (ViewBag.TotalDealer != null)
+    {
+        totalDealer = ViewBag.TotalDealer;
+    }
+
+    // Determine the total value of the player's hand
+    int totalPlayer = 0;
+    if (ViewBag.TotalPlayer != null)
+    {
+        totalPlayer = ViewBag.TotalPlayer;
+    }
+
+    // Dealer's cards
+    var dealerFirstCard = ViewBag.DealerFirstCard as Card;
+    var dealerHiddenCard = ViewBag.DealerHiddenCard as Card;
+}
+
+<h1>BlackJack</h1>
+
+<p>Your total hand value: @totalPlayer</p>
+<p>Dealer's visible hand value: @totalDealer</p>
+
+@if (dealerFirstCard != null)
+{
+    <p>Dealer's first card: @($"{dealerFirstCard.rank} of {dealerFirstCard.suit}")</p>
+}
+
+@if (result == "Playing")
+{
+    // The game is still in progress
+    if (totalPlayer < 21)
+    {
+        <p>What would you like to do?</p>
+        <a href="/BlackJack/Play?option=H">Hit</a>
+        <br>
+        <a href="/BlackJack/Play?option=S">Stand</a>
+        <br>
+    }
+    // The player has 21
+    else if (totalPlayer == 21)
+    {
+        <p>Congratulations, you have 21! Let's see what the dealer has.</p>
+        <a href="/BlackJack/Play?option=S">Stand</a>
+        <br>
+    }
+    else // The player has exceeded 21
+    {
+        <p>You have exceeded 21. Please stand to compare hands.</p>
+        <a href="/BlackJack/Play?option=S">Stand</a>
+        <br>
+    }
+}
+else
+{
+    // Show dealer's first and second cards at the end of the game
+    <h2>Dealer's Cards</h2>
+    @if (dealerFirstCard != null)
+    {
+        // Display the dealer's first card
+        <p>First card: @($"{dealerFirstCard.rank} of {dealerFirstCard.suit}")</p>
+    }
+    @if (dealerHiddenCard != null)
+    {
+        // Display the dealer's second card
+        <p>Second card: @($"{dealerHiddenCard.rank} of {dealerHiddenCard.suit}")</p>
+    }
+
+    // Display the game result
+    if (result == "Won")
+    {
+        <h2>Congratulations, you won!</h2>
+        <p>You won: @wins</p>
+        <a href="/init/@wins">Play again with your winnings</a>
+    }
+    // The player lost the game and can click a link to go to the home page again
+    else if (result == "Lost")
+    {
+        <h2>Game Over</h2>
+        <p>You lost: @wins</p>
+        <p>Click the link below to return to the home page.</p>
+        <a href="/">Return to Home Page</a>
+    }
+    // The game ended in a draw and the player gets their bet back
+    else if (result == "Draw")
+    {
+                    // The player gets their bet back
+        <h2>It's a Draw</h2>
+        <p>You get your bet back: @wins</p>
+        <a href="/init/@wins">play again with current bet</a>
+    }
+    // The game has not been initialized
+    else if (result == "GameError")
+    {
+        <h2>GameError</h2>
+        <p>Game not initialized. Please start a new game via <a href="/">home page</a>.</p>
+    }
+    // The player selected an invalid option
+    else if (result == "UnknownOption")
+    {
+        <h2>Invalid Option</h2>
+        <p>The option you selected is not recognized. Please choose 'H' or 'S' in the URL or use the links.</p>
+    }
+}
