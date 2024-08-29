@@ -105,7 +105,7 @@ namespace PRG.EVA.BlackJack.Controllers
                 {
                     _game.Status = GameStatus.Lost;
                     ViewBag.Result = "Lost";
-                    ViewBag.Wins = _game.Bet; // Display bet amount as loss
+                    ViewBag.Wins = _game.Bet;
                 }
                 else
                 {
@@ -158,10 +158,10 @@ namespace PRG.EVA.BlackJack.Controllers
                 {
                     _game.Status = GameStatus.Lost;
                     ViewBag.Result = "Lost";
-                    ViewBag.Wins = _game.Bet; // Display bet amount as loss
+                    ViewBag.Wins = _game.Bet;
                 }
-                ViewBag.TotalDealer = _game.DealerDeck.TotalValue;
-                ViewBag.TotalPlayer = _game.PlayerDeck.TotalValue;
+                ViewBag.TotalDealer = _game.DealerDeck.TotalValue; // Show the total value of the dealer's cards
+                ViewBag.TotalPlayer = _game.PlayerDeck.TotalValue; // Show the total value of the player's cards
                 ViewBag.DealerFirstCard = _game.DealerDeck.Cards.ElementAtOrDefault(0); //Get the firs random card
                 ViewBag.DealerHiddenCard = _game.DealerDeck.Cards.ElementAtOrDefault(1); //Get the second random card
 

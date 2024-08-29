@@ -1,16 +1,16 @@
-﻿using PRG.EVA.BlackJack.Models;
+﻿using System.Collections.Generic;
 
-public class BlackJackGame
+namespace PRG.EVA.BlackJack.Models
 {
-    public int Id { get; set; }
+    public class BlackJackGame
+    {
+        public int Id { get; set; }
+        public int DealerDeckId { get; set; }
+        public Deck DealerDeck { get; set; }
 
-    // Foreign Key for Decks
-    public int DealerDeckId { get; set; }
-    public Deck DealerDeck { get; set; }
-
-    public int PlayerDeckId { get; set; } // Foreign Key for Decks
-    public Deck PlayerDeck { get; set; } // Navigation Property
-
-    public GameStatus Status { get; set; }
-    public decimal Bet { get; set; }
+        public int PlayerDeckId { get; set; }
+        public Deck PlayerDeck { get; set; }
+        public GameStatus Status { get; set; }
+        public decimal Bet { get; set; }
+    }
 }

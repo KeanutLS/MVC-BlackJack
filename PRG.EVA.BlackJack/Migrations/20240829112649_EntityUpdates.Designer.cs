@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PRG.EVA.BlackJack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240829112649_EntityUpdates")]
+    partial class EntityUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace PRG.EVA.BlackJack.Migrations
 
                     b.HasIndex("PlayerDeckId");
 
-                    b.ToTable("BlackJackGames", (string)null);
+                    b.ToTable("BlackJackGames");
                 });
 
             modelBuilder.Entity("PRG.EVA.BlackJack.Models.Card", b =>
@@ -71,7 +74,7 @@ namespace PRG.EVA.BlackJack.Migrations
 
                     b.HasIndex("DeckId");
 
-                    b.ToTable("Cards", (string)null);
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("PRG.EVA.BlackJack.Models.Deck", b =>
@@ -84,7 +87,7 @@ namespace PRG.EVA.BlackJack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Decks", (string)null);
+                    b.ToTable("Decks");
                 });
 
             modelBuilder.Entity("PRG.EVA.BlackJack.Models.GameLog", b =>
@@ -119,7 +122,7 @@ namespace PRG.EVA.BlackJack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameLogs", (string)null);
+                    b.ToTable("GameLogs");
                 });
 
             modelBuilder.Entity("PRG.EVA.BlackJack.Models.BlackJackGame", b =>
